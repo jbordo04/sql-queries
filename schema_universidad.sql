@@ -73,7 +73,7 @@ INSERT INTO departamento VALUES (7, 'Filología');
 INSERT INTO departamento VALUES (8, 'Derecho');
 INSERT INTO departamento VALUES (9, 'Biología y Geología');
  
- /* Persona */
+ /* Persona */ 
 INSERT INTO persona VALUES (1, '26902806M', 'Salvador', 'Sánchez', 'Pérez', 'Almería', 'C/ Real del barrio alto', '950254837', '1991/03/28', 'H', 'alumno');
 INSERT INTO persona VALUES (2, '89542419S', 'Juan', 'Saez', 'Vega', 'Almería', 'C/ Mercurio', '618253876', '1992/08/08', 'H', 'alumno');
 INSERT INTO persona VALUES (3, '11105554G', 'Zoe', 'Ramirez', 'Gea', 'Almería', 'C/ Marte', '618223876', '1979/08/19', 'M', 'profesor');
@@ -99,7 +99,7 @@ INSERT INTO persona VALUES (22, '41491230N', 'Antonio', 'Domínguez', 'Guerrero'
 INSERT INTO persona VALUES (23, '64753215G', 'Irene', 'Hernández', 'Martínez', 'Almería', 'C/ Zapillo', '628452384', '1996/03/12', 'M', 'alumno');
 INSERT INTO persona VALUES (24, '85135690V', 'Sonia', 'Gea', 'Ruiz', 'Almería', 'C/ Mercurio', '678812017', '1995/04/13', 'M', 'alumno');
  
-/* Profesor */
+/* Profesor */  4,7,12
 INSERT INTO profesor VALUES (3, 1);
 INSERT INTO profesor VALUES (5, 2);
 INSERT INTO profesor VALUES (8, 3);
@@ -257,3 +257,11 @@ INSERT INTO alumno_se_matricula_asignatura VALUES (19, 7, 5);
 INSERT INTO alumno_se_matricula_asignatura VALUES (19, 8, 5);
 INSERT INTO alumno_se_matricula_asignatura VALUES (19, 9, 5);
 INSERT INTO alumno_se_matricula_asignatura VALUES (19, 10, 5);
+
+-- SQL QUERIES -- 
+SELECT apellido1, apellido2, nombre FROM persona ORDER BY apellido1 ASC, apellido2 ASC, nombre ASC;
+SELECT p.nombre, p.apellido1, p.apellido2 FROM persona p WHERE P.tipo = 'alumno' AND p.telefono IS NULL;
+SELECT nombre, apellido1, apellido2, fecha_nacimiento FROM persona WHERE fecha_nacimiento BETWEEN '1999-01-01' AND '1999-12-31' ;
+SELECT p.nif, p.nombre, p.apellido1, p.apellido2 FROM persona p WHERE p.telefono IS NULL AND RIGHT(p.nif, 1) = 'K';
+SELECT a.nombre from asignatura a
+INNER JOIN  grado g ON g.id = a.id_grado WHERE curso = 3 AND cuatrimestre = 1 AND g.id = 3; 
