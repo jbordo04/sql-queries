@@ -260,8 +260,35 @@ INSERT INTO alumno_se_matricula_asignatura VALUES (19, 10, 5);
 
 -- SQL QUERIES -- 
 SELECT apellido1, apellido2, nombre FROM persona ORDER BY apellido1 ASC, apellido2 ASC, nombre ASC;
+
 SELECT p.nombre, p.apellido1, p.apellido2 FROM persona p WHERE P.tipo = 'alumno' AND p.telefono IS NULL;
+
 SELECT nombre, apellido1, apellido2, fecha_nacimiento FROM persona WHERE fecha_nacimiento BETWEEN '1999-01-01' AND '1999-12-31' ;
+
 SELECT p.nif, p.nombre, p.apellido1, p.apellido2 FROM persona p WHERE p.telefono IS NULL AND RIGHT(p.nif, 1) = 'K';
-SELECT a.nombre from asignatura a
-INNER JOIN  grado g ON g.id = a.id_grado WHERE curso = 3 AND cuatrimestre = 1 AND g.id = 3; 
+
+SELECT a.nombre FROM asignatura a
+INNER JOIN  grado g ON g.id = a.id_grado WHERE a.curso = 3 AND a.cuatrimestre = 1 AND g.id = 7; 
+
+SELECT p.apellido1, p.apellido2, p.nombre, d.nombre AS 'departamento' FROM profesor f
+INNER JOIN persona p ON p.id = f.id_profesor
+INNER JOIN departamento d ON d.id = f.id_departamento ORDER BY p.apellido1 ASC, p.nombre ASC;
+
+SELECT a.nombre AS 'asignatura', c.anyo_inicio, c.anyo_fin FROM alumno_se_matricula_asignatura am 
+INNER JOIN asignatura a ON am.id_asignatura = a.id
+INNER JOIN persona p ON p.id = am.id_alumno
+INNER JOIN curso_escolar c ON c.id = am.id_curso_escolar WHERE p.nif = '26902806M';
+
+SELECT d.nombre AS departamento FROM profesor P
+INNER JOIN departamento d ON d.id = p.id_departamento
+INNER JOIN asignatura a ON a.id_profesor = p.id_profesor 
+INNER JOIN grado g ON g.id = a.id_grado WHERE g.nombre = 'Grado en Ingeniería Informática (Plan 2015)' GROUP BY d.nombre;
+
+SELECT CONCAT(p.nombre,' ', p.apellido1) AS 'Alumnos 2018/2019' FROM alumno_se_matricula_asignatura al
+INNER JOIN persona p ON p.id = al.id_alumno 
+INNER JOIN curso_escolar c ON c.id = al.id_curso_escolar WHERE c.anyo_inicio = 2018 AND c.anyo_fin = 2019 GROUP BY p.nombre, p.apellido1;
+
+-- LEFT/RIGHT JOIN QUERIES --
+SELECT d.nombre, p.apellido1, p.apellido2, p.nombre FROM persona p
+LEFT JOIN profesor pr ON pr.id_profesor = p.id
+LEFT JOIN departamento d ON d.id = pr.id_departamento WHERE p.tipo = 'profesor';
