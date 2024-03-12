@@ -3,7 +3,7 @@ USE universidad;
 -- SQL QUERIES -- 
 SELECT apellido1, apellido2, nombre FROM persona ORDER BY apellido1 ASC, apellido2 ASC, nombre ASC;
 
-SELECT p.nombre, p.apellido1, p.apellido2 FROM persona p WHERE P.tipo = 'alumno' AND p.telefono IS NULL;
+SELECT p.nombre, p.apellido1, p.apellido2 FROM persona p WHERE p.tipo = 'alumno' AND p.telefono IS NULL;
 
 SELECT nombre, apellido1, apellido2, fecha_nacimiento FROM persona WHERE fecha_nacimiento BETWEEN '1999-01-01' AND '1999-12-31' ;
 
@@ -21,7 +21,7 @@ INNER JOIN asignatura a ON am.id_asignatura = a.id
 INNER JOIN persona p ON p.id = am.id_alumno
 INNER JOIN curso_escolar c ON c.id = am.id_curso_escolar WHERE p.nif = '26902806M';
 
-SELECT d.nombre AS departamento FROM profesor P
+SELECT d.nombre AS departamento FROM profesor p
 INNER JOIN departamento d ON d.id = p.id_departamento
 INNER JOIN asignatura a ON a.id_profesor = p.id_profesor 
 INNER JOIN grado g ON g.id = a.id_grado WHERE g.nombre = 'Grado en Ingeniería Informática (Plan 2015)' GROUP BY d.nombre;
